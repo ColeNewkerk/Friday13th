@@ -1,5 +1,11 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
+import java.util.Date;
 
 public class FridayUtils {
 
@@ -13,7 +19,9 @@ public class FridayUtils {
      */
     public static LocalDate findPreviousFriday13th(LocalDate aDate) {
         // TODO
-        return null;
+        LocalDate date = LocalDate.now();
+        return date.with(TemporalAdjusters.previous(DayOfWeek.FRIDAY));
+
     }
 
     /**
@@ -25,7 +33,34 @@ public class FridayUtils {
      */
     public static int howManyFriday13ths(int year) {
         // TODO
+        try{
+            String dateString = "01/13/"+ year;
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Date date = dateFormat.parse(dateString);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+
+            int counter = 0;
+            int months = 0;
+            while(months++ <= 12){
+                if(Calendar.FRIDAY == cal.get(Calendar.DAY_OF_WEEK)){
+                    counter++;
+                }
+                cal.add(Calendar.MONTH, 1);
+            }
+
+            System.out.println("Number of Fridays on 13th = "+ counter);
+
+
+
+        }
+        catch(ParseException e){
+
+        }
+
         return 0;
+
+
     }
 
 }
